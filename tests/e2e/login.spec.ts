@@ -4,7 +4,7 @@ import { LoginCred, readexcel_logincredential } from '../../utils/excelReader';
 import { LoginPage } from '../../pages/LoginPage';
 
 
-test.skip('Login Test Case', async ({page}) => {
+test('Login Test Case', async ({page}) => {
     const loginPage = new LoginPage(page);
 
     await page.goto(BASE_URL.SAUCEDEMO);
