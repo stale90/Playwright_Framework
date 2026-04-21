@@ -2,6 +2,7 @@ import {test , expect } from '@playwright/test'
 import { BASE_URL,USERNAME,PASSWORD } from '../../utils/EnvConfig';
 import { LoginCred, readexcel_logincredential } from '../../utils/excelReader';
 import { LoginPage } from '../../pages/LoginPage';
+import { Logger } from '../../utils/logger';
 
 
 test('Login Test Case', async ({page}) => {
@@ -12,6 +13,8 @@ test('Login Test Case', async ({page}) => {
     await expect(page).toHaveURL('https://www.saucedemo.com/inventory.html')
 
 });
+
+
 
 const testData : LoginCred [] = readexcel_logincredential('logincredential');
 

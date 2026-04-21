@@ -30,4 +30,12 @@ export class Utility {
         return timeStampFileName;
         // "2026-04-16-12_54_23"
     }
+
+    // function to get unique Report folder location
+    static getReportFolder() : string {
+      let date = Utility.getCurrentDate();
+      let timeStamp = Utility.getDateTimeFilename();
+      let folderPath = `${date}/html_${timeStamp}`;
+      return folderPath;
+    }
 }

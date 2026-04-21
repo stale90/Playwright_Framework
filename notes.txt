@@ -1,0 +1,26 @@
+
+Allure Report --
+
+npm install -D allure-playwright
+
+npx allure generate ./allure-results/04-21-2026/html_04-21-2026-15_44_15
+
+npx allure open ./allure-report
+
+
+---------------------
+
+allure-results/04-20-2026/html_04-20-2026-10_23_18
+allure-results/04-21-2026/html_04-21-2026-15_44_15
+
+---------------------------
+
+Install and Command - Playwright Framework
+
+1. Install Node in the system and VS Code
+2. Open folder in VSCode
+3. run>  npm init -y
+4. run>  npm install -D playwright @playwright/test typescript ts-node @cucumber/cucumber
+5. run>  npm install dotenv
+6. run>  npm install -D allure-playwright allure-commandline
+7. run>  npx playwright install  
