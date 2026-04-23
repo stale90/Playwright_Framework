@@ -1,18 +1,17 @@
+Framework Related 
+https://github.com/mnovitskyi/sauce-demo-playwright/blob/main/pages/loginPage.ts
+https://github.com/msoriginal/SalesforceProject/blob/main/pageObjects/BasePage.ts
+
+--------------------------------
 
 Allure Report --
 
 npm install -D allure-playwright
-
-npx allure generate ./allure-results/04-21-2026/html_04-21-2026-15_44_15
-
+npx allure generate ./allure-results/04-23-2026/html_04-23-2026-16_10_42
 npx allure open ./allure-report
 
-
+allure-results/04-23-2026/html_04-23-2026-16_10_42
 ---------------------
-
-allure-results/04-20-2026/html_04-20-2026-10_23_18
-allure-results/04-21-2026/html_04-21-2026-15_44_15
-
 ---------------------------
 
 Install and Command - Playwright Framework
@@ -24,3 +23,37 @@ Install and Command - Playwright Framework
 5. run>  npm install dotenv
 6. run>  npm install -D allure-playwright allure-commandline
 7. run>  npx playwright install  
+
+--------------------------------GIT Push---------
+
+# 2. Add all changes
+git add .
+
+# 3. Commit
+git commit -m "Add dynamic Allure reporting with dated folders"
+
+# 4. Push
+git push origin main
+
+---------------------------------
+
+
+
+
+
+---------------------------Prompt to generate  BasePage Actions------------
+
+Read below function format which contains click action code in playwright - 
+
+ // Method 6 : Click on Element like Button,Link etc.
+    async click(element: Locator, desc: string): Promise<void> {
+        await test.step(`Click on "${desc}" `, async () => {
+            await expect(element).toBeEnabled({ timeout: 10000 });
+            await element.click();
+        });
+    }
+
+
+Generate at least 30 methods which we can use as actions on different type of web element in same format and consider below pointers
+1. Function arguments can be changed based on action requirement.
+2. Promise return can be vary based on requirement of function

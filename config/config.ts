@@ -1,24 +1,31 @@
 import { devices } from "@playwright/test";
-import { Utility } from "../utils/utility";
 import dotenv from "dotenv";
-import path from "path";
 
 dotenv.config();
 
 
 export const CONFIG = {
 
-  orange_baseUrl: process.env.ORANGE_BASE_URL!,
+  // .env file properties
+  ORANGE_BASE_URL: process.env.ORANGE_BASE_URL!,
 
-  saucedemo_baseUrl: process.env.SAUCEDEMO_BASE_URL!,
+  SAUCEDEMO_BASE_URL: process.env.SAUCEDEMO_BASE_URL!,
 
   playwright_baseUrl: process.env.PLAYWRIGHT_BASE_URL!,
   
   myMessage: process.env.MY_MESSAGE || "We Will Keep Walking",
 
-  testDir: process.env.TESTDIR || "./tests",
+  testDir: process.env.TESTDIR_LOCATION || "./tests",
 
-  timeout: parseInt(process.env.TIMEOUT || "30000"),
+  testDataLocation: process.env.TEST_DATA_EXCEL_LOCATION || "./test-data/TestData.xlsx",
+
+  timeout: parseInt(process.env.TIMEOUT_GLOBAL || "30000"),
+
+  actionTimeout: parseInt(process.env.TIMEOUT_ACTION || "2000"),
+
+  navigationTimeout: parseInt(process.env.TIMEOUT_NAVIGATION || "10000"),
+  
+  expectTimeout: parseInt(process.env.TIMEOUT_EXPECT || "5000"),
 
   workers: parseInt(process.env.WORKERS || "2"),
 

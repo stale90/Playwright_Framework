@@ -25,11 +25,17 @@ export default defineConfig ({
   retries: CONFIG.retries,
 
   use: {
+    actionTimeout: CONFIG.actionTimeout,
+    navigationTimeout:CONFIG.navigationTimeout,
     baseURL: CONFIG.playwright_baseUrl,
     headless: CONFIG.headless,
     screenshot:'on-first-failure',
     video: 'retain-on-failure',
     trace: 'on-first-retry',
+  },
+
+  expect:{
+    timeout: CONFIG.expectTimeout,
   },
 
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -41,10 +47,5 @@ export default defineConfig ({
             [ "html", { outputFolder: `html-report/${Utility.getReportFolder()}`,} ],
             [ "allure-playwright", {resultsDir: path.resolve(`allure-results/${Utility.getReportFolder()}`,),}]
           ],
-
-  // reporter:[
-  //             [ "html", { outputFolder: `html-report/${Utility.getCurrentDate()}/html_${Utility.getDateTimeFilename()}`,} ],
-  //             [ "allure-playwright", {resultsDir: path.resolve(`allure-results/${Utility.getCurrentDate()}/html_${Utility.getDateTimeFilename()}`,),}]
-  //          ],
-
+          
 });

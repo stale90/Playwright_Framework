@@ -1,8 +1,8 @@
 import * as XLSX from 'xlsx';
 import path from 'path';
-import { FILE_LOCATION } from './EnvConfig';
+import { CONFIG } from '../config/config';
 
-const filePath = FILE_LOCATION.EXCEL_TEST_DATA_PATH;
+const filePath = CONFIG.testDataLocation;
 
 
 // Read one sheet with Custom object Type - guestmakepayment
@@ -20,14 +20,17 @@ export function readexcel_guestmakepayment(sheetName: string): MakePayment[] {
     return data;
 }
 
-// Read one sheet with Custom object Type - logincredential
+// Read one sheet with Custom object Type - loginData
 export type LoginCred = {
+    run: string;
+    testname:string;
+    summary:string;
     username: string;
     password: string;
-    expected: string;
-    run: string;
+    scenario: string;
+    message: string;
 }
-export function readexcel_logincredential(sheetName: string): LoginCred[] {
+export function excel_loginData(sheetName: string): LoginCred[] {
     const fullPath = path.resolve(filePath);
     const workbook = XLSX.readFile(fullPath);
     const sheet = workbook.Sheets[sheetName];
