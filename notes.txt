@@ -11,7 +11,7 @@ npx allure generate ./allure-results/04-23-2026/html_04-23-2026-16_10_42
 npx allure open ./allure-report
 
 allure-results/04-23-2026/html_04-23-2026-16_10_42
----------------------
+--------------------- 
 ---------------------------
 
 Install and Command - Playwright Framework

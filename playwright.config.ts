@@ -3,6 +3,7 @@ import { Utility } from "./utils/utility";
 import { CONFIG } from "./config/config";
 import path from "path";
 
+
 /*
  * See https://playwright.dev/docs/test-configuration.
  */

@@ -36,7 +36,7 @@ test("Verify SauceDemo Login flow Errors",
 });
 
 
-const testData: LoginCred[] = excel_loginData('logincredential');
+const testData: LoginCred[] = excel_loginData('loginData');
 
 test.describe('Run Login Test from TestData Excel File', () => {
 

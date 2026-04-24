@@ -1,5 +1,6 @@
 import { devices } from "@playwright/test";
 import dotenv from "dotenv";
+import { createProjects, ProjectConfig } from "./project";
 
 dotenv.config();
 
@@ -37,45 +38,14 @@ export const CONFIG = {
 
   browserName: process.env.PROJECT_BROWSER_NAME || "chromium",
 
-  deviceName: process.env.PROJECT_DEVICE_NAME || "Desktop Chrome",
+  projects : createProjects((process.env.PROJECT_BROWSER_NAME || 'chromium').split('|')) as ProjectConfig[],
 
-  projects: [
-   {
-      name: process.env.PROJECT_BROWSER_NAME || "chromium",
-      use: { ...devices[process.env.PROJECT_DEVICE_NAME || "Desktop Chrome"] },
-    },
-  ],
+  // projects: [
+  //  {
+  //     name: process.env.PROJECT_BROWSER_NAME || "chromium",
+  //     use: { ...devices[process.env.PROJECT_DEVICE_NAME || "Desktop Chrome"] },
+  //   },
+  // ],
 
 };
 
- const BROWSERS = [
-    {
-      name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
-    },
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
-    {
-      name: 'Pixel5',
-      use: { ...devices['Pixel 5'] },
-    },
-    {
-      name: 'iPhone12',
-      use: { ...devices['iPhone 12'] },
-    },
-    {
-      name: 'Microsoft Edge',
-      use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    },
-    {
-      name: 'Google Chrome',
-      use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    },
-  
-  ];
