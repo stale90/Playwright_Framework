@@ -46,9 +46,9 @@ function getDeviceName(browserName: string): string {
     chromium: "Desktop Chrome",
     firefox: "Desktop Firefox",
     webkit: "Desktop Safari",
-    Pixel5: "Pixel 5",
+    pixel5: "Pixel 5",
     iPhone12: "iPhone 12",
-    "Microsoft Edge": "Desktop Edge",
+    edge : "Desktop Edge",
   };
   return defaults[browserName] || "Desktop Chrome";
 }

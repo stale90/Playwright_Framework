@@ -27,7 +27,7 @@ export type LoginCred = {
     summary:string;
     username: string;
     password: string;
-    scenario: string;
+    scenario: string; 
     message: string;
 }
 export function excel_loginData(sheetName: string): LoginCred[] {

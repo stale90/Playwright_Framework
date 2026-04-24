@@ -7,11 +7,21 @@ https://github.com/msoriginal/SalesforceProject/blob/main/pageObjects/BasePage.t
 Allure Report --
 
 npm install -D allure-playwright
-npx allure generate ./allure-results/04-23-2026/html_04-23-2026-16_10_42
-npx allure open ./allure-report
+npm install -g allure-commandline
 
+
+> npx allure generate ./allure-results/04-24-2026/04-24-2026-23_17_51 --clean
+> npx allure open ./allure-report
+
+
+allure-results/04-24-2026/04-24-2026-19_55_29
 allure-results/04-23-2026/html_04-23-2026-16_10_42
 --------------------- 
+
+npm install -g allure-commandline
+
+
+
 ---------------------------
 
 Install and Command - Playwright Framework
@@ -26,6 +36,11 @@ Install and Command - Playwright Framework
 
 --------------------------------GIT Push---------
 
+#git checkout main
+#git add .
+#git commit -m "Mandatory Commit message"
+#git push origin main
+#git pull
 # 2. Add all changes
 git add .
 
@@ -37,6 +52,19 @@ git push origin main
 
 ---------------------------------
 
+
+
+const ALLURE_RESULTS_BASE = process.env.ALLURE_RESULTS_BASE || 'allure-results';
+const HTML_REPORTS_BASE = process.env.HTML_REPORTS_BASE || 'html-report';
+const ALLURE_REPORTS_BASE = process.env.ALLURE_REPORTS_BASE || 'allure-report';
+
+const dateFolder = Utility.getCurrentDate();        // "04-24-2026"
+const timestamp = Utility.getDateTimeFilename();    // "04-24-2026-18_25_22"
+
+// ✅ EXACT FOLDER PATHS
+const allureReportFolder = `${ALLURE_RESULTS_BASE}/${dateFolder}/${timestamp}`;
+const htmlReportFolder = `${HTML_REPORTS_BASE}/${dateFolder}/html_${timestamp}`;
+const finalReportFolder = `${ALLURE_REPORTS_BASE}-${dateFolder}-${timestamp}`;
 
 
 

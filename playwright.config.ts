@@ -1,8 +1,11 @@
 import { defineConfig, devices } from "@playwright/test";
 import { Utility } from "./utils/utility";
 import { CONFIG } from "./config/config";
-import path from "path";
 
+
+const reportPaths = Utility.getReportFolder();
+const htmlReportFolder = reportPaths[0];
+const allureReportFolder = reportPaths[1];
 
 /*
  * See https://playwright.dev/docs/test-configuration.
@@ -45,8 +48,8 @@ export default defineConfig ({
   projects: CONFIG.projects,
 
   reporter:[
-            [ "html", { outputFolder: `html-report/${Utility.getReportFolder()}`,} ],
-            [ "allure-playwright", {resultsDir: path.resolve(`allure-results/${Utility.getReportFolder()}`,),}]
+            [ "html", { outputFolder: htmlReportFolder} ],
+            [ "allure-playwright", {resultsDir: allureReportFolder}]
           ],
           
 });
