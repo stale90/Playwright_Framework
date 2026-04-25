@@ -42,6 +42,7 @@ Install and Command - Playwright Framework
 #git commit -m "Mandatory Commit message"
 #git push origin main
 #git pull
+
 # 2. Add all changes
 git add .
 

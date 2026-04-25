@@ -1,4 +1,4 @@
-import { Page, Locator, expect } from '@playwright/test'
+import { Page, Locator, expect , TestInfo } from '@playwright/test'
 import { BasePage } from '../BasePage';
 
 export class LoginPage extends BasePage {
@@ -21,7 +21,7 @@ export class LoginPage extends BasePage {
     readonly msg3:string = "Epic sadface: Sorry, this user has been locked out.";
 
     constructor(page: Page) {
-        super(page);
+    super(page);
         this.page = page;
         this.lbl_PageHeading = page.getByText('Swag Labs');
         this.txt_Username = page.locator('[data-test="username"]');
@@ -63,17 +63,20 @@ export class LoginPage extends BasePage {
         await this.fill(this.txt_Password, password, "Password Textbox");
         await this.click(this.btn_Login, "Login Button");
         await this.verifyTextFull(this.msg_Error, `${this.msg1}`, "Empty UserName Error");
+        await this.addScreenshot("username_error");
 
         //Verify password empty error
         await this.fill(this.txt_Username, username, "Username Textbox");
         await this.clearInput(this.txt_Password,"Password Textbox");
         await this.click(this.btn_Login, "Login Button");
         await this.verifyTextFull(this.msg_Error, `${this.msg2}`, "Empty Password Error");
+        await this.addScreenshot("password_error");
 
         //Verify Invalid Credentials
         await this.fill(this.txt_Password, password, "Password Textbox");
         await this.click(this.btn_Login, "Login Button");
         await this.verifyTextFull(this.msg_Error, `${this.msg3}`, "Invalid Cred Error");
+        await this.addScreenshot("invalid_error");
     }
 
     // Verify Login into Application
