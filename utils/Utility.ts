@@ -1,7 +1,4 @@
-/*
-* This file contains helper methods to support test operations
-*
-* */
+import { CONFIG } from "../config/config";
 
 export class Utility {
   // function to return current date as  04-16-2026
@@ -32,14 +29,13 @@ export class Utility {
     // "2026-04-16-12_54_23"
   }
 
-  // function to get unique Report folder location
+  // function to get unique Report folder locations
   static getReportFolder(): string[] {
     let date = Utility.getCurrentDate();
     let timeStamp = Utility.getDateTimeFilename();
-    let htmlReportPath = `html-report/${date}/html_${timeStamp}`;
-    let allureReportPath = `allure-results/${date}/${timeStamp}`;
-    let allureFinalReport = `allure-report/${date}/${timeStamp}`;
-    let paths: string[] = [htmlReportPath, allureReportPath, allureFinalReport];
+    let htmlReportPath = `${CONFIG.html_base_path}/${date}/html_${timeStamp}`;
+    let allureReportPath = `${CONFIG.allure_base_path}/${date}/${timeStamp}`;
+    let paths: string[] = [htmlReportPath, allureReportPath];
     //const filename = 'paths.txt';
     //FileUtils.writePathsToFile(paths, filename );
     return paths;

@@ -29,6 +29,7 @@ export class BasePage {
         await test.step(`Verify Text of "${desc}" as : "${expectedText}" `, async () => {
             await expect(element).toHaveText(expectedText);
         });
+    
     }
 
     // Method 4 : Verify Element Attribute for Some Value/Text

@@ -43,7 +43,7 @@ export class LoginPage extends BasePage {
         await this.verifyTextFull(this.lbl_PageHeading, "Swag Labs", "Page Heading");
         await this.verifyAttributeValue(this.txt_Username, "placeholder", "Username", "UserName TextBox");
         await this.verifyAttributeValue(this.txt_Password, "placeholder", "Password", "Password TextBox");
-        await this.verifyTextFull(this.btn_Login, "Login", "Button");
+        await this.verifyTextFull(this.btn_Login, "Login", "Button Button");
         await this.verifyTextFull(this.lbl_FooterHeading1, "Accepted usernames are:", "Login Cred - Username heading");
         await this.verifyTextFull(this.lbl_FooterHeading2, "Password for all users:", "Login Cred - Password heading");
     }

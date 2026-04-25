@@ -13,6 +13,10 @@ export const CONFIG = {
   SAUCEDEMO_BASE_URL: process.env.SAUCEDEMO_BASE_URL!,
 
   playwright_baseUrl: process.env.PLAYWRIGHT_BASE_URL!,
+
+  allure_base_path: process.env.ALLURE_RESULTS_BASE_FOLDER || "allure-results",
+
+  html_base_path: process.env.HTML_REPORTS_BASE_FOLDER || "html-report",
   
   myMessage: process.env.MY_MESSAGE || "We Will Keep Walking",
 

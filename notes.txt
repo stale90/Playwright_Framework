@@ -6,14 +6,15 @@ https://github.com/msoriginal/SalesforceProject/blob/main/pageObjects/BasePage.t
 
 Allure Report --
 
+npm install --save-dev allure-playwright allure-js-commons allure-commandline
 npm install -D allure-playwright
 npm install -g allure-commandline
 
 
-> npx allure generate ./allure-results/04-24-2026/04-24-2026-23_17_51 --clean
+> npx allure generate ./allure-results/04-25-2026/04-25-2026-14_37_44 --clean
 > npx allure open ./allure-report
 
-
+allure-results/04-25-2026/04-25-2026-14_37_44
 allure-results/04-24-2026/04-24-2026-19_55_29
 allure-results/04-23-2026/html_04-23-2026-16_10_42
 --------------------- 

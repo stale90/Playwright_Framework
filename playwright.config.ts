@@ -47,9 +47,10 @@ export default defineConfig ({
   /* Browser configuration set in Prjocet config */
   projects: CONFIG.projects,
 
+  /* Report configuration setting */
   reporter:[
             [ "html", { outputFolder: htmlReportFolder} ],
-            [ "allure-playwright", {resultsDir: allureReportFolder}]
+            [ "allure-playwright", { resultsDir: allureReportFolder }]
           ],
           
 });

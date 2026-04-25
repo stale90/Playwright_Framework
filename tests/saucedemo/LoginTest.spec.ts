@@ -4,7 +4,7 @@ import { CONFIG } from "../../config/config";
 import { LoginCred, excel_loginData } from "../../utils/excelReader";
 
 
-test("Verify SauceDemo Login Flow",
+test("Verify SauceDemo Login Flow @Regression",
     {
     annotation: [
                 { type: 'Play-300', description: 'verify login page elements on SauceDemo'},
@@ -21,7 +21,7 @@ test("Verify SauceDemo Login Flow",
 });
 
 
-test("Verify SauceDemo Login flow Errors",
+test("Verify SauceDemo Login flow Errors - @Regression",
     {
     annotation: [
                 { type: 'Play-302', description: 'verify Error messages with invalid credentials.'},
@@ -38,7 +38,7 @@ test("Verify SauceDemo Login flow Errors",
 
 const testData: LoginCred[] = excel_loginData('loginData');
 
-test.describe('Run Login Test from TestData Excel File', () => {
+test.describe('Run Login Test from TestData Excel File - @ExcelData', () => {
 
     for (const data of testData) {
         if (data.run !== 'yes')
