@@ -1,7 +1,33 @@
-import { test } from '@playwright/test'
+import { test } from "../../playwright-utils/fixtures";
 import { LoginPage } from "../../pages/saucedemo/LoginPage";
 import { CONFIG } from "../../config/config";
 import { LoginCred, excel_loginData } from "../../utils/excelReader";
+
+
+
+test.skip(
+  "Verify New Tab @smoke",
+  {
+    annotation: [
+      {
+        type: "Play-300",
+        description: "verify login page elements on SauceDemo",
+      },
+      {
+        type: "Play-301",
+        description: "verify login with valid credentials on SauceDemo",
+      },
+    ],
+  },
+  async ({ QApage , context } ) => {
+    const page = QApage;
+    const [newTab] = await Promise.all( [context.waitForEvent('page'), page.locator('#opentab').click()]);
+    await newTab.waitForURL('**/practice**');
+    await page.bringToFront();
+    await newTab.close();
+
+  },
+);
 
 
 test(
@@ -18,11 +44,11 @@ test(
       },
     ],
   },
-  async ({ page }) => {
+  async ({ QApage }) => {
+    const page = QApage;
     let username = "standard_user";
     let password = "secret_sauce";
     const login = new LoginPage(page);
-    await login.navigateTo(CONFIG.SAUCEDEMO_BASE_URL);
     await login.verifyLoginPageContent();
     await login.login(username, password);
   },
@@ -38,11 +64,11 @@ test(
       },
     ],
   },
-  async ({ page }) => {
+  async ({ QApage }) => {
+    const page = QApage;
     let username = "locked_out_user";
     let password = "secret_sauce";
     const login = new LoginPage(page);
-    await login.navigateTo(CONFIG.SAUCEDEMO_BASE_URL);
     await login.invalidLogin(username, password);
   },
 );
@@ -50,7 +76,7 @@ test(
 
 const testData: LoginCred[] = excel_loginData("loginData");
 
-test.describe.skip("Run Login Test from TestData Excel File - @excel", () => {
+test.describe("Run Login Test from TestData Excel File - @excel", () => {
   for (const data of testData) {
     if (data.run !== "yes") continue;
     test(
@@ -60,9 +86,9 @@ test.describe.skip("Run Login Test from TestData Excel File - @excel", () => {
           { type: `${data.testname}`, description: `${data.summary}` },
         ],
       },
-      async ({ page }, testInfo) => {
+      async ({ QApage }, testInfo) => {
+        const page = QApage;
         const login = new LoginPage(page);
-        await login.navigateTo(CONFIG.SAUCEDEMO_BASE_URL);
         await login.loginScenarios(data.username, data.password, data.scenario);
       },
     );

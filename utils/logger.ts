@@ -1,4 +1,4 @@
-import { info } from "node:console";
+
 
 export class Logger {
   static info(message: string) {
@@ -8,4 +8,5 @@ export class Logger {
   static error(message: string) {
     console.log(`[ERROR]: ${message}`);
   }
+
 }

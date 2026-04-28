@@ -18,7 +18,7 @@ export class BasePage {
     });
   }
 
-    // **Page fixture methods**
+    // **Page fuction methods**
     // Navigation to Url
     async navigateTo(url: string): Promise<void> {
         await test.step(`Navigate to URL : ${url}`, async () => {
