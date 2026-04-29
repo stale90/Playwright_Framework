@@ -21,7 +21,7 @@ export class BasePage {
     // **Page fuction methods**
     // Navigation to Url
     async navigateTo(url: string): Promise<void> {
-        await test.step(`Navigate to URL : ${url}`, async () => {
+        await test.step(`Navigate to Test URL : ${url}`, async () => {
             await this.page.goto(url);
         });
     }
@@ -36,6 +36,7 @@ export class BasePage {
         return result;
     }
 
+     // Get Locator from string at run time
     private getLocatorByString(selector: string | Locator): Locator {
         return typeof selector === 'string' ? this.page.locator(selector) : selector;
     }
@@ -52,7 +53,7 @@ export class BasePage {
     async verifyTextFull(element: Locator, expectedText: string, desc: string): Promise<void> {
         await test.step(`Verify Text of "${desc}" as : "${expectedText}" `, async () => {
             await expect(element).toHaveText(expectedText);
-        });
+        },{ box: true });
     
     }
 

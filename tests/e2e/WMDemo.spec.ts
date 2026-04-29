@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { BASE_URL } from '../../utils/EnvConfig';
-import { GuestMakePayment } from '../../pages/GuestMakePayment';
+import { GuestMakePayment } from '../../src/pages/GuestMakePayment';
 
 
 test('test', async ({ page }) => {

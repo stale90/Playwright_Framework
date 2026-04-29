@@ -1,6 +1,6 @@
 import { defineConfig, devices } from "@playwright/test";
-import { Utility } from "./utils/utility";
-import { CONFIG } from "./config/config";
+import { Utility } from "./src/utils/utility"; 
+import { CONFIG } from "./src/config/config";
 
 
 const reportPaths = Utility.getReportFolder();

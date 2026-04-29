@@ -1,17 +1,10 @@
 import * as XLSX from 'xlsx';
 import path from 'path';
 import { CONFIG } from '../config/config';
+import { MakePayment, LoginCred } from '../types/test-data';
 
 const filePath = CONFIG.testDataLocation;
 
-
-// Read one sheet with Custom object Type - guestmakepayment
-export type MakePayment = {
-    customerID: string;
-    postalCode: string;
-    expected: string;
-    run: string;
-}
 export function readexcel_guestmakepayment(sheetName: string): MakePayment[] {
     const fullPath = path.resolve(filePath);
     const workbook = XLSX.readFile(fullPath);
@@ -20,16 +13,6 @@ export function readexcel_guestmakepayment(sheetName: string): MakePayment[] {
     return data;
 }
 
-// Read one sheet with Custom object Type - loginData
-export type LoginCred = {
-    run: string;
-    testname:string;
-    summary:string;
-    username: string;
-    password: string;
-    scenario: string; 
-    message: string;
-}
 export function excel_loginData(sheetName: string): LoginCred[] {
     const fullPath = path.resolve(filePath);
     const workbook = XLSX.readFile(fullPath);

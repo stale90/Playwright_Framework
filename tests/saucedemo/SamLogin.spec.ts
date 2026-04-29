@@ -1,6 +1,6 @@
 import { test } from "../../playwright-utils/fixtures";
 import { LoginPage } from "../../pages/saucedemo/LoginPage";
-import { CONFIG } from "../../config/config";
+import { CONFIG } from "../../src/config/config";
 import { LoginCred, excel_loginData } from "../../utils/excelReader";
 
 

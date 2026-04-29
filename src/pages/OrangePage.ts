@@ -1,5 +1,5 @@
 import { Page, Locator, expect } from '@playwright/test'
-import { BasePage } from './BasePage';
+import { BasePage } from '../src/pages/BasePage';
 
 class OrangeHRMLoginPage extends BasePage {
     readonly page: Page;

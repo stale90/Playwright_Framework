@@ -1,13 +1,12 @@
 import { devices } from "@playwright/test";
 import dotenv from "dotenv";
-import { createProjects, ProjectConfig } from "./project";
+import { ProjectConfig } from "../types/annotations";
 
 dotenv.config();
 
-
+// .env file properties
 export const CONFIG = {
 
-  // .env file properties
   ORANGE_BASE_URL: process.env.ORANGE_BASE_URL!,
 
   SAUCEDEMO_BASE_URL: process.env.SAUCEDEMO_BASE_URL!,
@@ -42,14 +41,36 @@ export const CONFIG = {
 
   browserName: process.env.PROJECT_BROWSER_NAME || "chromium",
 
-  projects : createProjects((process.env.PROJECT_BROWSER_NAME || 'chromium').split('|')) as ProjectConfig[],
-
-  // projects: [
-  //  {
-  //     name: process.env.PROJECT_BROWSER_NAME || "chromium",
-  //     use: { ...devices[process.env.PROJECT_DEVICE_NAME || "Desktop Chrome"] },
-  //   },
-  // ],
+  projects : createProjectsBrowserConfig((process.env.PROJECT_BROWSER_NAME || 'chromium').split('|')) as ProjectConfig[],
 
 };
+
+
+// Multiple Browser Support
+export function createProjectsBrowserConfig(browserNames: string[]): ProjectConfig[] {
+  return browserNames.map((browserName) => {
+    const projectName = browserName || "chromium";
+    const deviceName = getDeviceName(browserName);
+
+    return {
+      name: projectName,
+      use: {
+        ...devices[deviceName as keyof typeof devices],
+      },
+    } as ProjectConfig;
+  });
+}
+
+
+function getDeviceName(browserName: string): string {
+  const defaults: Record<string, string> = {
+    chromium: "Desktop Chrome",
+    firefox: "Desktop Firefox",
+    webkit: "Desktop Safari",
+    pixel5: "Pixel 5",
+    iPhone12: "iPhone 12",
+    edge : "Desktop Edge",
+  };
+  return defaults[browserName] || "Desktop Chrome";
+}
 

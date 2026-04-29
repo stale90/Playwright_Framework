@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { MakePayment, readexcel_guestmakepayment } from '../../utils/excelReader';
-import { GuestMakePayment } from '../../pages/GuestMakePayment';
+import { MakePayment, readexcel_guestmakepayment } from '../../src/utils/excelReader'; 
+import { GuestMakePayment } from '../../src/pages/GuestMakePayment';
 
 
 const testData : MakePayment [] = readexcel_guestmakepayment('guestmakepayment');
