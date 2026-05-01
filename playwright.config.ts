@@ -12,9 +12,12 @@ const allureReportFolder = reportPaths[1];
  */
 
 export default defineConfig ({
-
+  
   /* Test Directory folder */
-  testDir: CONFIG.testDir,
+  testDir: './tests',
+  
+  /* disable 'test-results' output folder */
+  outputDir: CONFIG.OUTPUR_DIR,
 
   /* Timeout set to 60 seconds */
   timeout: CONFIG.timeout,

@@ -16,7 +16,7 @@ const Test1_testNames: TestCase[] = [
 ];
 const Test1_title: string = "Verify Login flow - @regression";
 
-test(`${Test1_title}`, async ({ page }) => {
+test.only(`${Test1_title}`, async ({ page }) => {
   Helper.addAnnotations(Test1_testNames);
   let username = "standard_user";
   let password = "secret_sauce";

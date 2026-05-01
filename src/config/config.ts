@@ -7,6 +7,8 @@ dotenv.config();
 // .env file properties
 export const CONFIG = {
 
+  OUTPUR_DIR : './temp',
+
   ORANGE_BASE_URL: process.env.ORANGE_BASE_URL!,
 
   SAUCEDEMO_BASE_URL: process.env.SAUCEDEMO_BASE_URL!,
@@ -18,8 +20,6 @@ export const CONFIG = {
   html_base_path: process.env.HTML_REPORTS_BASE_FOLDER || "html-report",
   
   myMessage: process.env.MY_MESSAGE || "We Will Keep Walking",
-
-  testDir: process.env.TESTDIR_LOCATION || "./tests",
 
   testDataLocation: process.env.TEST_DATA_EXCEL_LOCATION || "./test-data/TestData.xlsx",
 
@@ -73,4 +73,5 @@ function getDeviceName(browserName: string): string {
   };
   return defaults[browserName] || "Desktop Chrome";
 }
+
 
