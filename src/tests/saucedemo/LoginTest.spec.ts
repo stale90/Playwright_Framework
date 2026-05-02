@@ -1,10 +1,10 @@
 import { test } from "@playwright/test";
-import { LoginPage } from "../../src/pages/saucedemo/LoginPage";
-import { CONFIG } from "../../src/config/config";
-import { excel_loginData } from "../../src/utils/excelReader";
-import { LoginCred } from "../../src/types/test-data";
-import { TestCase } from "../../src/types/annotations";
-import { Helper } from "../../src/utils/helper";
+import { LoginPage } from "../../pages/saucedemo/LoginPage";
+import { CONFIG } from "../../config/config";
+import { login_data } from "../../data/TestData";
+import { LoginType } from "../../types/data-type";
+import { TestCase } from "../../types/annotations-type";
+import { Helper } from "../../reusable/helper";
 
 //--------------------------------
 
@@ -31,7 +31,6 @@ test(`${Test1_title}`, async ({ page }) => {
   await test.step(`Login into Application`, async () => {
     await login.login(username, password);
   });
-
 });
 
 //--------------------------------
@@ -54,13 +53,12 @@ test(`${Test2_title}`, async ({ page }) => {
   await test.step(`Verify Login Error scenarios`, async () => {
     await login.invalidLogin(username, password);
   });
-
 });
 
 //---------------------------
 
 const Test3_title: string = "Run Login Test from TestData Excel File - @excel";
-const testData: LoginCred[] = excel_loginData("loginData");
+const testData: LoginType[] = login_data("login");
 
 test.describe(`${Test3_title}`, () => {
   for (const data of testData) {
@@ -70,7 +68,7 @@ test.describe(`${Test3_title}`, () => {
     ];
     test(`Verify various Login scenarios - ${data.scenario}`, async ({
       page,
-    }, testInfo) => {
+    }) => {
       Helper.addAnnotations(Test3_testNames);
       const login = new LoginPage(page);
       await test.step(`Open Test URL`, async () => {

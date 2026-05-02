@@ -1,8 +1,7 @@
-import { test } from "../../playwright-utils/fixtures";
+import { test } from "../../reusable/fixtures";
 import { LoginPage } from "../../pages/saucedemo/LoginPage";
-import { CONFIG } from "../../src/config/config";
-import { LoginCred, excel_loginData } from "../../utils/excelReader";
-
+import { excel_loginData } from "../../data/TestData";
+import { LoginCred } from "../../types/data-type";
 
 
 test.skip(

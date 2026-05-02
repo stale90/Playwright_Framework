@@ -1,10 +1,10 @@
 import { test } from "@playwright/test";
 import { LoginPage } from "../../src/pages/saucedemo/LoginPage";
 import { CONFIG } from "../../src/config/config";
-import { excel_loginData } from "../../src/utils/excelReader";
-import { LoginCred } from "../../src/types/test-data";
-import { TestCase } from "../../src/types/annotations";
-import { Helper } from "../../src/utils/helper";
+import { excel_loginData } from "../data/TestData";
+import { LoginCred } from "../types/data-type";
+import { TestCase } from "../types/annotations-type";
+import { Helper } from "../reusable/helper";
 
 //--------------------------------
 

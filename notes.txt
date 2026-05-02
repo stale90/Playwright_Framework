@@ -53,23 +53,6 @@ git push origin main
 
 ---------------------------------
 
-
-
-const ALLURE_RESULTS_BASE = process.env.ALLURE_RESULTS_BASE || 'allure-results';
-const HTML_REPORTS_BASE = process.env.HTML_REPORTS_BASE || 'html-report';
-const ALLURE_REPORTS_BASE = process.env.ALLURE_REPORTS_BASE || 'allure-report';
-
-const dateFolder = Utility.getCurrentDate();        // "04-24-2026"
-const timestamp = Utility.getDateTimeFilename();    // "04-24-2026-18_25_22"
-
-// ✅ EXACT FOLDER PATHS
-const allureReportFolder = `${ALLURE_RESULTS_BASE}/${dateFolder}/${timestamp}`;
-const htmlReportFolder = `${HTML_REPORTS_BASE}/${dateFolder}/html_${timestamp}`;
-const finalReportFolder = `${ALLURE_REPORTS_BASE}-${dateFolder}-${timestamp}`;
-
-
-
-
 ---------------------------Prompt to generate  BasePage Actions------------
 
 Read below function format which contains click action code in playwright - 

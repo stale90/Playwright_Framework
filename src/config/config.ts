@@ -1,13 +1,13 @@
 import { devices } from "@playwright/test";
 import dotenv from "dotenv";
-import { ProjectConfig } from "../types/annotations";
+import { ProjectConfig } from "../types/annotations-type";
 
 dotenv.config();
 
 // .env file properties
 export const CONFIG = {
 
-  OUTPUR_DIR : './temp',
+  OUTPUR_DIR : 'test-results',
 
   ORANGE_BASE_URL: process.env.ORANGE_BASE_URL!,
 

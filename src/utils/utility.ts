@@ -30,14 +30,14 @@ export class Utility {
   }
 
   // function to get unique Report folder locations
-  static getReportFolder(): string[] {
+  static getReportPaths(): Map<string,string> {
+    const paths = new Map<string, string>();
     let date = Utility.getCurrentDate();
     let timeStamp = Utility.getDateTimeFilename();
     let htmlReportPath = `${CONFIG.html_base_path}/${date}/html_${timeStamp}`;
     let allureReportPath = `${CONFIG.allure_base_path}/${date}/${timeStamp}`;
-    let paths: string[] = [htmlReportPath, allureReportPath];
-    //const filename = 'paths.txt';
-    //FileUtils.writePathsToFile(paths, filename );
+    paths.set("html", `${htmlReportPath}`)
+    paths.set("allure", `${allureReportPath}`)
     return paths;
   }
 

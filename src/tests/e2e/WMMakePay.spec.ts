@@ -1,9 +1,10 @@
 import { test, expect } from '@playwright/test';
-import { MakePayment, readexcel_guestmakepayment } from '../../src/utils/excelReader'; 
-import { GuestMakePayment } from '../../src/pages/GuestMakePayment';
+import { guestmakepayment_data } from '../../data/TestData'; 
+import { GuestMakePayment } from '../../pages/GuestMakePayment';
+import { GuestMakePaymentType } from "../../types/data-type";
 
 
-const testData : MakePayment [] = readexcel_guestmakepayment('guestmakepayment');
+const testData : GuestMakePaymentType [] = guestmakepayment_data('guestmakepayment');
 
 test.describe('Run Test from Test Data Excel', () => {
 

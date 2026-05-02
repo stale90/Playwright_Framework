@@ -1,5 +1,5 @@
 import test from "@playwright/test";
-import { TestCase } from "../types/annotations";
+import { TestCase } from "../types/annotations-type";
 
 export class Helper {
   /**

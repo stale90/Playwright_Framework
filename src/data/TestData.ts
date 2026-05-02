@@ -1,22 +1,23 @@
 import * as XLSX from 'xlsx';
 import path from 'path';
 import { CONFIG } from '../config/config';
-import { MakePayment, LoginCred } from '../types/test-data';
+import { GuestMakePaymentType, LoginType } from '../types/data-type';
 
 const filePath = CONFIG.testDataLocation;
 
-export function readexcel_guestmakepayment(sheetName: string): MakePayment[] {
+export function guestmakepayment_data(sheetName: string): GuestMakePaymentType[] {
     const fullPath = path.resolve(filePath);
     const workbook = XLSX.readFile(fullPath);
     const sheet = workbook.Sheets[sheetName];
-    const data: MakePayment[] = XLSX.utils.sheet_to_json(sheet);
+    const data: GuestMakePaymentType[] = XLSX.utils.sheet_to_json(sheet);
     return data;
 }
 
-export function excel_loginData(sheetName: string): LoginCred[] {
+export function login_data(sheetName: string): LoginType[] {
     const fullPath = path.resolve(filePath);
     const workbook = XLSX.readFile(fullPath);
     const sheet = workbook.Sheets[sheetName];
-    const data: LoginCred[] = XLSX.utils.sheet_to_json(sheet);
+    const data: LoginType[] = XLSX.utils.sheet_to_json(sheet);
     return data;
 }
+

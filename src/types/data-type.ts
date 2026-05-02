@@ -1,6 +1,6 @@
 
 // Custom DataType for sheet : loginData
-export interface LoginCred {
+export interface LoginType {
     run: string;
     testname: string;
     summary: string;
@@ -11,7 +11,7 @@ export interface LoginCred {
 }
 
 // Custom DataType for sheet : guestmakepayment
-export interface MakePayment {
+export interface GuestMakePaymentType {
     customerID: string;
     postalCode: string;
     expected: string;
