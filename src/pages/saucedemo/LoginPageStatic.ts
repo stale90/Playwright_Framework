@@ -39,42 +39,42 @@ export class LoginPageStatic {
 
     // Verify all Elements on WebPage
     async verifyLoginPageContent() {
-        await Actions.verifyTextFull(this.page,this.lbl_PageHeading, "Swag Labs", "Page Heading");
-        await Actions.verifyAttributeValue(this.page,this.txt_Username, "placeholder", "Username", "UserName TextBox");
-        await Actions.verifyAttributeValue(this.page,this.txt_Password, "placeholder", "Password", "Password TextBox");
-        await Actions.verifyTextFull(this.page,this.btn_Login, "Login", "Login Button");
-        await Actions.verifyTextFull(this.page,this.lbl_FooterHeading1, "Accepted usernames are:", "Login Cred - Username heading");
-        await Actions.verifyTextFull(this.page,this.lbl_FooterHeading2, "Password for all users:", "Login Cred - Password heading");
+        await Actions.verifyTextFull(this.lbl_PageHeading, "Swag Labs", "Page Heading");
+        await Actions.verifyAttributeValue(this.txt_Username, "placeholder", "Username", "UserName TextBox");
+        await Actions.verifyAttributeValue(this.txt_Password, "placeholder", "Password", "Password TextBox");
+        await Actions.verifyTextFull(this.btn_Login, "Login", "Login Button");
+        await Actions.verifyTextFull(this.lbl_FooterHeading1, "Accepted usernames are:", "Login Cred - Username heading");
+        await Actions.verifyTextFull(this.lbl_FooterHeading2, "Password for all users:", "Login Cred - Password heading");
     }
 
     // Verify Login into Application
     async login(username: string, password: string) {
-        await Actions.fill(this.page,this.txt_Username, username, "Username Textbox");
-        await Actions.fill(this.page,this.txt_Password, password, "Password Textbox");
-        await Actions.click(this.page,this.btn_Login, "Login Button");
+        await Actions.fill(this.txt_Username, username, "Username Textbox");
+        await Actions.fill(this.txt_Password, password, "Password Textbox");
+        await Actions.click(this.btn_Login, "Login Button");
         await Actions.verifyCurrentUrl(this.page,"https://www.saucedemo.com/inventory.html", "Dashboard URL");
-        await Actions.isVisible(this.page,this.lbl_BurgerIcon, "Hamberger Icon");
+        await Actions.isVisible(this.lbl_BurgerIcon, "Hamberger Icon");
     }
 
     //
     async invalidLogin(username: string, password: string) {
         // Verify empty username error message.
-        await Actions.fill(this.page,this.txt_Password, password, "Password Textbox");
-        await Actions.click(this.page,this.btn_Login, "Login Button");
-        await Actions.verifyTextFull(this.page,this.msg_Error, `${this.msg1}`, "Empty UserName Error");
+        await Actions.fill(this.txt_Password, password, "Password Textbox");
+        await Actions.click(this.btn_Login, "Login Button");
+        await Actions.verifyTextFull(this.msg_Error, `${this.msg1}`, "Empty UserName Error");
         await Actions.addScreenshot(this.page,"username_error");
 
         // Verify empty password error message.
-        await Actions.fill(this.page,this.txt_Username, username, "Username Textbox");
-        await Actions.clearInput(this.page,this.txt_Password,"Password Textbox");
-        await Actions.click(this.page,this.btn_Login, "Login Button");
-        await Actions.verifyTextFull(this.page,this.msg_Error, `${this.msg2}`, "Empty Password Error");
+        await Actions.fill(this.txt_Username, username, "Username Textbox");
+        await Actions.clearInput(this.txt_Password,"Password Textbox");
+        await Actions.click(this.btn_Login, "Login Button");
+        await Actions.verifyTextFull(this.msg_Error, `${this.msg2}`, "Empty Password Error");
         await Actions.addScreenshot(this.page,"password_error");
 
         //Verify Invalid credential error message.
-        await Actions.fill(this.page,this.txt_Password, password, "Password Textbox");
-        await Actions.click(this.page,this.btn_Login, "Login Button");
-        await Actions.verifyTextFull(this.page,this.msg_Error, `${this.msg3}`, "Invalid Cred Error");
+        await Actions.fill(this.txt_Password, password, "Password Textbox");
+        await Actions.click(this.btn_Login, "Login Button");
+        await Actions.verifyTextFull(this.msg_Error, `${this.msg3}`, "Invalid Cred Error");
         await Actions.addScreenshot(this.page,"invalid_error");
     }
 
@@ -83,29 +83,29 @@ export class LoginPageStatic {
         switch(scenario.toLowerCase()){
 
             case "valid_credential" :
-                await Actions.fill(this.page,this.txt_Username, username, "Username Textbox");
-                await Actions.fill(this.page,this.txt_Password, password, "Password Textbox");
-                await Actions.click(this.page,this.btn_Login, "Login Button");
+                await Actions.fill(this.txt_Username, username, "Username Textbox");
+                await Actions.fill(this.txt_Password, password, "Password Textbox");
+                await Actions.click(this.btn_Login, "Login Button");
                 await Actions.verifyCurrentUrl(this.page,"https://www.saucedemo.com/inventory.html", "Dashboard URL");
                 break;
 
             case "username_missing":
-                await Actions.fill(this.page,this.txt_Password, password, "Password Textbox");
-                await Actions.click(this.page,this.btn_Login, "Login Button");
-                await Actions.verifyTextFull(this.page,this.msg_Error, `${this.msg1}`, "Empty UserName Error");
+                await Actions.fill(this.txt_Password, password, "Password Textbox");
+                await Actions.click(this.btn_Login, "Login Button");
+                await Actions.verifyTextFull(this.msg_Error, `${this.msg1}`, "Empty UserName Error");
                 break;
 
             case "password_missing":
-                await Actions.fill(this.page,this.txt_Username, username, "Username Textbox");    
-                await Actions.click(this.page,this.btn_Login, "Login Button");
-                await Actions.verifyTextFull(this.page,this.msg_Error, `${this.msg2}`, "Empty Password Error");
+                await Actions.fill(this.txt_Username, username, "Username Textbox");    
+                await Actions.click(this.btn_Login, "Login Button");
+                await Actions.verifyTextFull(this.msg_Error, `${this.msg2}`, "Empty Password Error");
                 break;
 
             case "invalid_credential":
-                await Actions.fill(this.page,this.txt_Username, username, "Username Textbox");
-                await Actions.fill(this.page,this.txt_Password, password, "Password Textbox");    
-                await Actions.click(this.page,this.btn_Login, "Login Button");
-                await Actions.verifyTextFull(this.page,this.msg_Error, `${this.msg3}`, "Invalid Cred Error");
+                await Actions.fill(this.txt_Username, username, "Username Textbox");
+                await Actions.fill(this.txt_Password, password, "Password Textbox");    
+                await Actions.click(this.btn_Login, "Login Button");
+                await Actions.verifyTextFull(this.msg_Error, `${this.msg3}`, "Invalid Cred Error");
                 break;
 
             default:

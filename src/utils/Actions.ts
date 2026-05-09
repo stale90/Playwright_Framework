@@ -40,20 +40,19 @@ export class Actions {
   }
 
   // **Assertions**
-  static async verifyTextPartial(page: Page, element: Locator, expectedText: string, desc: string): Promise<void> {
+  static async verifyTextPartial(element: Locator, expectedText: string, desc: string): Promise<void> {
     await test.step(`Verify "${desc}" contains: "${expectedText}"`, async () => {
       await expect(element).toContainText(expectedText);
     });
   }
 
-  static async verifyTextFull(page: Page, element: Locator, expectedText: string, desc: string): Promise<void> {
+  static async verifyTextFull(element: Locator, expectedText: string, desc: string): Promise<void> {
     await test.step(`Verify "${desc}" exact text: "${expectedText}"`, async () => {
       await expect(element).toHaveText(expectedText);
     });
   }
 
   static async verifyAttributeValue(
-    page: Page, 
     element: Locator, 
     attributeName: string, 
     attributeValue: string, 
@@ -65,56 +64,56 @@ export class Actions {
   }
 
   // **Actions**
-  static async fill(page: Page, element: Locator, value: string, desc: string): Promise<void> {
+  static async fill(element: Locator, value: string, desc: string): Promise<void> {
     await test.step(`Fill "${desc}": "${value}"`, async () => {
       await expect(element).toBeVisible();
       await element.fill(value);
     });
   }
 
-  static async typeInput(page: Page, element: Locator, value: string, desc: string): Promise<void> {
+  static async typeInput(element: Locator, value: string, desc: string): Promise<void> {
     await test.step(`Type into "${desc}": "${value}"`, async () => {
       await expect(element).toBeVisible();
       await element.type(value);
     });
   }
 
-  static async clearInput(page: Page, element: Locator, desc: string): Promise<void> {
+  static async clearInput(element: Locator, desc: string): Promise<void> {
     await test.step(`Clear "${desc}"`, async () => {
       await expect(element).toBeVisible();
       await element.fill('');
     });
   }
 
-  static async click(page: Page, element: Locator, desc: string): Promise<void> {
+  static async click(element: Locator, desc: string): Promise<void> {
     await test.step(`Click "${desc}"`, async () => {
       await expect(element).toBeEnabled({ timeout: 10000 });
       await element.click({ force: true });
     });
   }
 
-  static async doubleClick(page: Page, element: Locator, desc: string): Promise<void> {
+  static async doubleClick(element: Locator, desc: string): Promise<void> {
     await test.step(`Double-click "${desc}"`, async () => {
       await expect(element).toBeVisible();
       await element.dblclick();
     });
   }
 
-  static async rightClick(page: Page, element: Locator, desc: string): Promise<void> {
+  static async rightClick(element: Locator, desc: string): Promise<void> {
     await test.step(`Right-click "${desc}"`, async () => {
       await expect(element).toBeEnabled({ timeout: 10000 });
       await element.click({ button: 'right' });
     });
   }
 
-  static async checkCheckbox(page: Page, element: Locator, desc: string): Promise<void> {
+  static async checkCheckbox(element: Locator, desc: string): Promise<void> {
     await test.step(`Check "${desc}"`, async () => {
       await expect(element).toBeVisible();
       await element.check({ force: true });
     });
   }
 
-  static async uncheckCheckbox(page: Page, element: Locator, desc: string): Promise<void> {
+  static async uncheckCheckbox(element: Locator, desc: string): Promise<void> {
     await test.step(`Uncheck "${desc}"`, async () => {
       await expect(element).toBeVisible();
       await element.uncheck({ force: true });
@@ -122,7 +121,6 @@ export class Actions {
   }
 
   static async selectDropdown(
-    page: Page, 
     element: Locator, 
     value: string | string[] | Record<string, any>, 
     desc: string
@@ -133,14 +131,14 @@ export class Actions {
     });
   }
 
-  static async uploadFile(page: Page, element: Locator, filePath: string, desc: string): Promise<void> {
+  static async uploadFile(element: Locator, filePath: string, desc: string): Promise<void> {
     await test.step(`Upload "${desc}"`, async () => {
       await expect(element).toBeVisible();
       await element.setInputFiles(filePath);
     });
   }
 
-  static async hover(page: Page, element: Locator, desc: string): Promise<void> {
+  static async hover(element: Locator, desc: string): Promise<void> {
     await test.step(`Hover "${desc}"`, async () => {
       await expect(element).toBeVisible();
       await element.hover();
@@ -148,7 +146,7 @@ export class Actions {
   }
 
   // **Verification (Return Boolean)**
-  static async isVisible(page: Page, element: Locator, desc: string): Promise<boolean> {
+  static async isVisible(element: Locator, desc: string): Promise<boolean> {
     try {
       await expect(element).toBeVisible({ timeout: 5000 });
       return true;
@@ -157,7 +155,7 @@ export class Actions {
     }
   }
 
-  static async isEnabled(page: Page, element: Locator, desc: string): Promise<boolean> {
+  static async isEnabled(element: Locator, desc: string): Promise<boolean> {
     try {
       await expect(element).toBeEnabled();
       return true;
@@ -166,7 +164,7 @@ export class Actions {
     }
   }
 
-  static async hasText(page: Page, element: Locator, expectedText: string, desc: string): Promise<boolean> {
+  static async hasText(element: Locator, expectedText: string, desc: string): Promise<boolean> {
     try {
       await expect(element).toContainText(expectedText);
       return true;
@@ -175,12 +173,11 @@ export class Actions {
     }
   }
 
-  static async getText(page: Page, element: Locator, desc: string): Promise<string> {
+  static async getText(element: Locator, desc: string): Promise<string> {
     return await element.textContent() || '';
   }
 
   static async getAttributeValue(
-    page: Page, 
     element: Locator, 
     attr: string, 
     desc: string
@@ -189,13 +186,13 @@ export class Actions {
   }
 
   // **Wait methods**
-  static async waitForVisible(page: Page, element: Locator, desc: string, timeout: number = 10000): Promise<void> {
+  static async waitForVisible(element: Locator, desc: string, timeout: number = 10000): Promise<void> {
     await test.step(`Wait visible "${desc}"`, async () => {
       await element.waitFor({ state: 'visible', timeout });
     });
   }
 
-  static async waitForHidden(page: Page, element: Locator, desc: string, timeout: number = 10000): Promise<void> {
+  static async waitForHidden(element: Locator, desc: string, timeout: number = 10000): Promise<void> {
     await test.step(`Wait hidden "${desc}"`, async () => {
       await element.waitFor({ state: 'hidden', timeout });
     });
@@ -211,12 +208,11 @@ export class Actions {
   }
 
   // **Table helpers**
-  static async getTableRowCount(page: Page, table: Locator, desc: string): Promise<number> {
+  static async getTableRowCount(table: Locator, desc: string): Promise<number> {
     return await table.locator('tbody tr').count();
   }
 
   static async getTableCellText(
-    page: Page, 
     table: Locator, 
     row: number, 
     col: number, 
