@@ -3,7 +3,7 @@ import { CONFIG } from "../../config/config";
 import { LoginType } from "../../types/data-type";
 import { TestCase } from "../../types/custom-type";
 import { Helper } from "../../reusable/helper";
-import { Utility } from "../../utils/utility";
+import { Utility } from "../../reusable/utility";
 import { LoginPageStatic } from "../../pages/saucedemo/LoginPageStatic";
 
 //--------------------------------
@@ -42,16 +42,13 @@ const Test2_testNames: TestCase[] = [
 const Test2_title: string = "Verify SauceDemo Login flow Errors - @regression";
 test(`${Test2_title}`, async ({ page }) => {
   Helper.addTestCases(Test2_testNames);
-  let username = "locked_out_user";
-  let password = "secret_sauce";
-
-  const login = new LoginPageStatic(page);
+  const loginPage = new LoginPageStatic(page);
   await test.step(`Open Test URL`, async () => {
     await page.goto(CONFIG.SAUCEDEMO_BASE_URL);
   });
 
   await test.step(`Verify Login Error scenarios`, async () => {
-    await login.invalidLogin(username, password);
+    await loginPage.invalidLogin("locked_out_user", "secret_sauce");
   });
 });
 
@@ -60,8 +57,6 @@ test(`${Test2_title}`, async ({ page }) => {
 
 const Test3_title: string = "Run Login Test from TestData Excel File - @excel";
 const testData = Utility.readFromExcelSheet<LoginType>(CONFIG.testDataLocation , 'login' );
-
-//const testData: LoginType[] = login_data("login");
 
 test.describe(`${Test3_title}`, () => {
   for (const data of testData) {

@@ -1,7 +1,7 @@
 import * as XLSX from 'xlsx';
 import path from 'path';
 import { CONFIG } from "../config/config";
-import { Logger } from './logger';
+import { Logger } from '../config/logger';
 
 export class Utility {
 

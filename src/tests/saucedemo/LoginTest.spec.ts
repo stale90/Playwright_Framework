@@ -4,7 +4,7 @@ import { CONFIG } from "../../config/config";
 import { LoginType } from "../../types/data-type";
 import { TestCase } from "../../types/custom-type";
 import { Helper } from "../../reusable/helper";
-import { Utility } from "../../utils/utility";
+import { Utility } from "../../reusable/utility";
 
 //--------------------------------
 

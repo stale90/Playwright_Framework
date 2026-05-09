@@ -1,6 +1,6 @@
 import test from "@playwright/test";
 import { TestCase } from "../types/custom-type";
-import { Logger } from "../utils/logger";
+import { Logger } from "../config/logger";
 
 export class Helper {
   /**

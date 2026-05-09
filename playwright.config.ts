@@ -1,5 +1,5 @@
 import { defineConfig } from "@playwright/test";
-import { Utility } from "./src/utils/utility"; 
+import { Utility } from "./src/reusable/utility"; 
 import { CONFIG } from "./src/config/config";
 
 

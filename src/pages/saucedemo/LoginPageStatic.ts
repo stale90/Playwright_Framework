@@ -1,5 +1,5 @@
 import  { test, Page, Locator, expect , TestInfo } from '@playwright/test'
-import { Actions } from '../../utils/Actions';
+import { Actions } from '../../reusable/actions';
 
 export class LoginPageStatic {
 
