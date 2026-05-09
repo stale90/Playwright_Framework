@@ -1,17 +1,22 @@
 import test from "@playwright/test";
-import { TestCase } from "../types/annotations-type";
+import { TestCase } from "../types/custom-type";
+import { Logger } from "../utils/logger";
 
 export class Helper {
   /**
    * Converts TestCase[] → Annotation array for test.info().annotations.push()
    * Usage: addAnnotations(testCases)
    */
-  static addAnnotations(testCases: TestCase[]) {
-    const annotations = testCases.map((tc) => ({
-      type: tc.testId, // "Play-300"
-      description: tc.testDesc, // "verify login page elements..."
-    }));
+  static addTestCases(testCases: TestCase[]) {
+    try {
+      const annotations = testCases.map((tc) => ({
+        type: tc.testId, // "Play-300"
+        description: tc.testDesc, // "verify login page elements..."
+      }));
 
-    test.info().annotations.push(...annotations);
+      test.info().annotations.push(...annotations);
+    } catch (error) {
+      Logger.error("Exception occured while adding Testcases in report");
+    }
   }
 }

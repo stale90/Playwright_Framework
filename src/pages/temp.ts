@@ -1,9 +1,9 @@
 import { test } from "@playwright/test";
 import { LoginPage } from "../../src/pages/saucedemo/LoginPage";
 import { CONFIG } from "../../src/config/config";
-import { excel_loginData } from "../data/TestData";
-import { LoginCred } from "../types/data-type";
-import { TestCase } from "../types/annotations-type";
+import { login_data } from "../data/TestData";
+import { LoginType } from "../types/data-type";
+import { TestCase } from "../types/custom-type";
 import { Helper } from "../reusable/helper";
 
 //--------------------------------
@@ -60,7 +60,7 @@ test(`${Test2_title}`, async ({ page }) => {
 //---------------------------
 
 const Test3_title: string = "Run Login Test from TestData Excel File - @excel";
-const testData: LoginCred[] = excel_loginData("loginData");
+const testData: LoginType[] = login_data("loginData");
 
 test.describe(`${Test3_title}`, () => {
   for (const data of testData) {

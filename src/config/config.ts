@@ -1,6 +1,6 @@
 import { devices } from "@playwright/test";
 import dotenv from "dotenv";
-import { ProjectConfig } from "../types/annotations-type";
+import { ProjectConfig } from "../types/custom-type";
 
 dotenv.config();
 

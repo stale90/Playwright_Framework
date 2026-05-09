@@ -1,10 +1,10 @@
 import { test } from "@playwright/test";
-import { LoginPage } from "../../pages/saucedemo/LoginPage";
 import { CONFIG } from "../../config/config";
 import { LoginType } from "../../types/data-type";
 import { TestCase } from "../../types/custom-type";
 import { Helper } from "../../reusable/helper";
 import { Utility } from "../../utils/utility";
+import { LoginPageStatic } from "../../pages/saucedemo/LoginPageStatic";
 
 //--------------------------------
 
@@ -21,9 +21,9 @@ test(`${Test1_title}`, async ({ page }) => {
   let username = "standard_user";
   let password = "secret_sauce";
 
-  const login = new LoginPage(page);
+  const login = new LoginPageStatic(page);
   await test.step(`Open Test URL`, async () => {
-    await login.navigateTo(CONFIG.SAUCEDEMO_BASE_URL);
+    await page.goto(CONFIG.SAUCEDEMO_BASE_URL);
   });
   await test.step(`Verify Login Page Content.`, async () => {
     await login.verifyLoginPageContent();
@@ -45,9 +45,9 @@ test(`${Test2_title}`, async ({ page }) => {
   let username = "locked_out_user";
   let password = "secret_sauce";
 
-  const login = new LoginPage(page);
+  const login = new LoginPageStatic(page);
   await test.step(`Open Test URL`, async () => {
-    await login.navigateTo(CONFIG.SAUCEDEMO_BASE_URL);
+    await page.goto(CONFIG.SAUCEDEMO_BASE_URL);
   });
 
   await test.step(`Verify Login Error scenarios`, async () => {
@@ -73,9 +73,9 @@ test.describe(`${Test3_title}`, () => {
       page,
     }) => {
       Helper.addTestCases(Test3_testNames);
-      const login = new LoginPage(page);
+      const login = new LoginPageStatic(page);
       await test.step(`Open Test URL`, async () => {
-        await login.navigateTo(CONFIG.SAUCEDEMO_BASE_URL);
+        await page.goto(CONFIG.SAUCEDEMO_BASE_URL);
       });
       await test.step(`Verify Login scenario : ${data.scenario}`, async () => {
         await login.loginScenarios(data.username, data.password, data.scenario);
@@ -84,4 +84,3 @@ test.describe(`${Test3_title}`, () => {
   }
 });
 
-//------------------------------

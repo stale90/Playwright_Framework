@@ -1,6 +1,10 @@
+import * as XLSX from 'xlsx';
+import path from 'path';
 import { CONFIG } from "../config/config";
+import { Logger } from './logger';
 
 export class Utility {
+
   // function to return current date as  04-16-2026
   static getCurrentDate(): string {
     const now = new Date();
@@ -40,5 +44,36 @@ export class Utility {
     paths.set("allure", `${allureReportPath}`)
     return paths;
   }
+
+  
+/**
+ * Generic Excel reader - Works for ANY sheet + ANY type!
+ * @param sheetName - Excel sheet name
+ * @returns T[] - Typed array (LoginType[], GuestMakePaymentType[], etc.)
+ */
+
+static readFromExcelSheet<T>(filePath: string, sheetName: string): T[] {
+  //const filePath = CONFIG.testDataLocation;
+  try {
+    const fullPath = path.resolve(filePath);
+    const workbook = XLSX.readFile(fullPath);
+    
+    // Validate sheet exists
+    if (!workbook.Sheets[sheetName]) {
+      throw new Error(`Sheet "${sheetName}" not found, Please recheck Sheet name.`);
+    }
+    
+    const sheet = workbook.Sheets[sheetName];
+    const data: T[] = XLSX.utils.sheet_to_json<T>(sheet, { 
+      defval: '',  // Handle empty cells
+      raw: false   // Formatted strings
+    });
+    
+    return data;
+  } catch (error) {
+    Logger.error(`Unknown Error appears while reading Excel sheet: ${sheetName}`);
+    return [];  // Empty typed array on error
+  }
+}
 
 }
