@@ -94,6 +94,7 @@ export class Logger {
     this.log(LogLevel.DEBUG, `[TRACE] ${message}`, context);
   }
 
+   
   /**
    * JSON structured logging (ELK/Splunk compatible)
    */
@@ -155,4 +156,5 @@ export class Logger {
       fs.rmSync(this.logDir, { recursive: true, force: true });
     }
   }
+  
 }

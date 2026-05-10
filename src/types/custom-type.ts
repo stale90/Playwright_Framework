@@ -1,3 +1,4 @@
+import { Browser, BrowserContext, Page } from "@playwright/test";
 
 export interface ProjectConfig {
   name: string;
@@ -9,3 +10,13 @@ export interface TestCase {
   testDesc: string;
 }
 
+export type FrameworkFixtures = {
+  page: Page;
+  context: BrowserContext;
+  browser: Browser;
+};
+
+export interface BrowserConfig {
+  headless?: boolean;
+  slowMo?: number;
+}

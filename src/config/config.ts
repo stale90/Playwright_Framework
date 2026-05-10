@@ -4,10 +4,34 @@ import { ProjectConfig } from "../types/custom-type";
 
 dotenv.config();
 
+// Create Project Congiguration for playwright.config , Multiple Browser Support
+export function createProjectsBrowserConfig(browserNames: string[]): ProjectConfig[] {
+  const deviceRecord: Record<string, string> = {
+    chromium: "Desktop Chrome",
+    firefox: "Desktop Firefox",
+    webkit: "Desktop Safari",
+    pixel5: "Pixel 5",
+    iPhone12: "iPhone 12",
+    edge: "Desktop Edge",
+  };
+
+  return browserNames.map((browserName) => {
+    const projectName = browserName || "chromium";
+    const deviceName = deviceRecord[browserName] || "Desktop Chrome";
+
+    return {
+      name: projectName,
+      use: {
+        ...devices[deviceName as keyof typeof devices],
+      },
+    } as ProjectConfig;
+  });
+}
+
 // .env file properties
 export const CONFIG = {
 
-  OUTPUR_DIR : 'test-results',
+  OUTPUR_DIR: 'test-results',
 
   ORANGE_BASE_URL: process.env.ORANGE_BASE_URL!,
 
@@ -18,7 +42,7 @@ export const CONFIG = {
   allure_base_path: process.env.ALLURE_RESULTS_BASE_FOLDER || "allure-results",
 
   html_base_path: process.env.HTML_REPORTS_BASE_FOLDER || "html-report",
-  
+
   myMessage: process.env.MY_MESSAGE || "We Will Keep Walking",
 
   testDataLocation: process.env.TEST_DATA_EXCEL_LOCATION || "./test-data/TestData.xlsx",
@@ -28,7 +52,7 @@ export const CONFIG = {
   actionTimeout: parseInt(process.env.TIMEOUT_ACTION || "2000"),
 
   navigationTimeout: parseInt(process.env.TIMEOUT_NAVIGATION || "10000"),
-  
+
   expectTimeout: parseInt(process.env.TIMEOUT_EXPECT || "5000"),
 
   workers: parseInt(process.env.WORKERS || "2"),
@@ -41,37 +65,12 @@ export const CONFIG = {
 
   browserName: process.env.PROJECT_BROWSER_NAME || "chromium",
 
-  projects : createProjectsBrowserConfig((process.env.PROJECT_BROWSER_NAME || 'chromium').split('|')) as ProjectConfig[],
+  projects: createProjectsBrowserConfig((process.env.PROJECT_BROWSER_NAME || 'chromium').split('|')) as ProjectConfig[],
 
 };
 
 
-// Multiple Browser Support
-export function createProjectsBrowserConfig(browserNames: string[]): ProjectConfig[] {
-  return browserNames.map((browserName) => {
-    const projectName = browserName || "chromium";
-    const deviceName = getDeviceName(browserName);
-
-    return {
-      name: projectName,
-      use: {
-        ...devices[deviceName as keyof typeof devices],
-      },
-    } as ProjectConfig;
-  });
-}
 
 
-function getDeviceName(browserName: string): string {
-  const defaults: Record<string, string> = {
-    chromium: "Desktop Chrome",
-    firefox: "Desktop Firefox",
-    webkit: "Desktop Safari",
-    pixel5: "Pixel 5",
-    iPhone12: "iPhone 12",
-    edge : "Desktop Edge",
-  };
-  return defaults[browserName] || "Desktop Chrome";
-}
 
 

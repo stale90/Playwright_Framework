@@ -1,4 +1,4 @@
-import { test } from "../../reusable/fixtures";
+import { test } from "../../config/fixtures";
 import { LoginPage } from "../../pages/saucedemo/LoginPage";
 import { excel_loginData } from "../../data/TestData";
 import { LoginCred } from "../../types/data-type";

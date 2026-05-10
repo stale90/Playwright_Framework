@@ -14,7 +14,7 @@ const Test1_testNames: TestCase[] = [
     testDesc: "verify login with valid credentials on SauceDemo",
   },
 ];
-const Test1_title: string = "Verify Login flow - @regression";
+const Test1_title: string = "Login Module - @regression";
 
 test(`${Test1_title}`, async ({ page }) => {
   Helper.addTestCases(Test1_testNames);
