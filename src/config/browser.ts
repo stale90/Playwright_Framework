@@ -14,7 +14,6 @@ export class BrowserManager {
     const launchConfig = {
       headless: config.headless ?? false,
       slowMo: config.slowMo ?? 0,
-      args: config.headless ? [] : ['--start-maximized']
     };
 
     let browser: Browser;
