@@ -33,47 +33,33 @@ export class Utility {
     // "2026-04-16-12_54_23"
   }
 
-  // function to get unique Report folder locations
-  static getReportPaths(): Map<string,string> {
-    const paths = new Map<string, string>();
-    let date = Utility.getCurrentDate();
-    let timeStamp = Utility.getDateTimeFilename();
-    let htmlReportPath = `${CONFIG.html_base_path}/${date}/html_${timeStamp}`;
-    let allureReportPath = `${CONFIG.allure_base_path}/${date}/${timeStamp}`;
-    paths.set("html", `${htmlReportPath}`)
-    paths.set("allure", `${allureReportPath}`)
-    return paths;
-  }
+  /**
+   * Generic Excel reader - Works for ANY sheet + ANY type!
+   * @param sheetName - Excel sheet name
+   * @returns T[] - Typed array (LoginType[], GuestMakePaymentType[], etc.)
+   */
 
-  
-/**
- * Generic Excel reader - Works for ANY sheet + ANY type!
- * @param sheetName - Excel sheet name
- * @returns T[] - Typed array (LoginType[], GuestMakePaymentType[], etc.)
- */
+  static readFromExcelSheet<T>(filePath: string, sheetName: string): T[] {
+    try {
+      const fullPath = path.resolve(filePath);
+      const workbook = XLSX.readFile(fullPath);
 
-static readFromExcelSheet<T>(filePath: string, sheetName: string): T[] {
-  //const filePath = CONFIG.testDataLocation;
-  try {
-    const fullPath = path.resolve(filePath);
-    const workbook = XLSX.readFile(fullPath);
-    
-    // Validate sheet exists
-    if (!workbook.Sheets[sheetName]) {
-      throw new Error(`Sheet "${sheetName}" not found, Please recheck Sheet name.`);
+      // Validate sheet exists
+      if (!workbook.Sheets[sheetName]) {
+        throw new Error(`Sheet "${sheetName}" not found, Please recheck Sheet name.`);
+      }
+
+      const sheet = workbook.Sheets[sheetName];
+      const data: T[] = XLSX.utils.sheet_to_json<T>(sheet, {
+        defval: '',  // Handle empty cells
+        raw: false   // Formatted strings
+      });
+
+      return data;
+    } catch (error) {
+      Logger.error(`Unknown Error appears while reading Excel sheet: ${sheetName}`);
+      return [];  // Empty typed array on error
     }
-    
-    const sheet = workbook.Sheets[sheetName];
-    const data: T[] = XLSX.utils.sheet_to_json<T>(sheet, { 
-      defval: '',  // Handle empty cells
-      raw: false   // Formatted strings
-    });
-    
-    return data;
-  } catch (error) {
-    Logger.error(`Unknown Error appears while reading Excel sheet: ${sheetName}`);
-    return [];  // Empty typed array on error
   }
-}
 
 }

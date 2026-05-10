@@ -1,9 +1,9 @@
 import { defineConfig } from "@playwright/test";
 import { Utility } from "./src/reusable/utility"; 
-import { CONFIG } from "./src/config/config";
+import { CONFIG , getReportPaths } from "./src/config/config";
 
 
-let reportPaths = Utility.getReportPaths();
+let reportPaths = getReportPaths();
 
 /*
  * See https://playwright.dev/docs/test-configuration.
