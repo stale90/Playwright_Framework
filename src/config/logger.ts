@@ -27,9 +27,9 @@ export interface LogContext {
 }
 
 export class Logger {
-  private static logDir = './logs';
-  private static logFile = `framework-${format(new Date(), 'yyyyMMdd-HHmmss')}.log`;
-  private static minLevel: LogLevel = LogLevel.INFO;  // Configurable
+//  private static logDir = './logs';
+// private static logFile = `framework-${format(new Date(), 'yyyyMMdd-HHmmss')}.log`;
+   private static minLevel: LogLevel = LogLevel.INFO;  // Configurable
   
   // Colors for console (industry standard)
   private static colors: Record<LogLevel, string> = {
@@ -71,6 +71,15 @@ export class Logger {
   }
 
   /**
+   * Exception: Print Exception message.
+   */
+  static exception(context: string, error: unknown): void {
+  const msg = `❌ ${context}: ${error instanceof Error ? error.message : String(error)}`;
+  Logger.error(msg, error instanceof Error ? error : undefined);
+  throw error;
+}
+
+  /**
    * ERROR: Non-fatal errors (assertion fail, timeout)
    */
   static error(message: string, error?: Error, context?: LogContext): void {
@@ -94,7 +103,7 @@ export class Logger {
     this.log(LogLevel.DEBUG, `[TRACE] ${message}`, context);
   }
 
-   
+  
   /**
    * JSON structured logging (ELK/Splunk compatible)
    */
@@ -108,7 +117,7 @@ export class Logger {
     };
     console.log(JSON.stringify(logEntry));
     
-    this.appendToFile(JSON.stringify(logEntry));
+    //this.appendToFile(JSON.stringify(logEntry));
   }
 
   // **PRIVATE: Core logging engine**
@@ -127,9 +136,10 @@ export class Logger {
 
     // File output (plain text)
     const fileMessage = `[${timestamp}] [${level}] ${message}${ctx}\n`;
-    this.appendToFile(fileMessage);
+    //this.appendToFile(fileMessage);
   }
 
+  /*
   private static appendToFile(message: string): void {
     try {
       if (!fs.existsSync(this.logDir)) {
@@ -140,21 +150,21 @@ export class Logger {
       console.error('Logger file write failed:', error);
     }
   }
-
+*/
   /**
    * Get current log file path
-   */
+   
   static getLogFile(): string {
     return path.join(this.logDir, this.logFile);
   }
-
+*/
   /**
    * Clear logs (before new run)
-   */
+   
   static clearLogs(): void {
     if (fs.existsSync(this.logDir)) {
       fs.rmSync(this.logDir, { recursive: true, force: true });
     }
   }
-  
+  */
 }

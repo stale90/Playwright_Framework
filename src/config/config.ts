@@ -4,7 +4,7 @@ import { ProjectConfig } from "../types/custom-type";
 
 dotenv.config();
 
-// Create Project Congiguration for playwright.config , Multiple Browser Support
+// Create Project Configuration for playwright.config , Multiple Browser Support
 export function createProjectsBrowserConfig(browserNames: string[]): ProjectConfig[] {
   const deviceRecord: Record<string, string> = {
     chromium: "Desktop Chrome",
@@ -68,9 +68,3 @@ export const CONFIG = {
   projects: createProjectsBrowserConfig((process.env.PROJECT_BROWSER_NAME || 'chromium').split('|')) as ProjectConfig[],
 
 };
-
-
-
-
-
-

@@ -1,7 +1,7 @@
 import { test as base,TestInfo } from "@playwright/test";
-import { BrowserManager } from "./browser_manager";
 import { Logger } from "./logger";
 import { FrameworkFixtures } from "../types/custom-type";
+import { BrowserManager } from "./browser";
 
 export const test = base.extend<FrameworkFixtures>({
   // Generic page (beforeEach + afterEach)
@@ -9,14 +9,8 @@ export const test = base.extend<FrameworkFixtures>({
     // Get browser from project.name!
     const projectName = testInfo.project?.name || "chromium-desktop";
 
-    // ✅ Auto-maps project to browser!
-    const browserType = projectName.includes("firefox")
-      ? "firefox"
-      : projectName.includes("webkit") || projectName.includes("iPhone")
-        ? "webkit"
-        : "chromium";
-
-    Logger.info(`🚀 Setup ${projectName} (${browserType})`);
+    const browserType = projectName.includes("firefox") ? "firefox" : 
+                        projectName.includes("webkit") || projectName.includes("iPhone") ? "webkit": "chromium";
 
     const { page, context, browser } = await BrowserManager.getPage(browserType);
     await use(page);
