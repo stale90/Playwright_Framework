@@ -5,8 +5,56 @@ import { LoginType } from "../../types/data-type";
 import { TestCase } from "../../types/custom-type";
 import { Helper } from "../../reusable/helper";
 import { Utility } from "../../reusable/utility";
+import { ExcelJSUtility } from "../../reusable/ExcelJSUtility";
 
 //--------------------------------
+
+test.afterEach(async ({}, testInfo) => {
+  let status = "UNKNOWN";
+  let testID;
+  let testSummary;
+
+  console.log("Test Status : " + testInfo.status);
+  if (testInfo.status === "passed") status = "PASS";
+  if (testInfo.status === "failed") status = "FAIL";
+  if (testInfo.status === "skipped") status = "SKIP";
+
+  for (const annotation of testInfo.annotations) {
+    testID = annotation.type;
+    testSummary = annotation.description;
+  }
+  ExcelJSUtility.writeExcel(testID, testSummary, status);
+});
+
+//----------------------------------
+
+const Test3_title: string = "Run Login Test from TestData Excel File - @excel";
+const testData = Utility.readFromExcelSheet<LoginType>(
+  CONFIG.testDataLocation,
+  "login",
+);
+
+test.describe(`${Test3_title}`, () => {
+  for (const data of testData) {
+    if (data.run !== "yes") continue;
+    const Test3_testNames: TestCase[] = [
+      { testId: data.testname, testDesc: data.summary },
+    ];
+    test(`${data.summary}`, async ({ page }) => {
+      Helper.addTestCases(Test3_testNames);
+      const login = new LoginPage(page);
+      await test.step(`Open Test URL`, async () => {
+        await login.navigateTo(CONFIG.SAUCEDEMO_BASE_URL);
+      });
+
+      await test.step(`Verify Login scenario : ${data.scenario}`, async () => {
+        await login.loginScenarios(data.username, data.password, data.scenario);
+      });
+    });
+  }
+});
+
+//----------------------------------
 
 const Test1_testNames: TestCase[] = [
   {
@@ -56,32 +104,5 @@ test(`${Test2_title}`, async ({ page }) => {
 });
 
 //---------------------------
-
-
-const Test3_title: string = "Run Login Test from TestData Excel File - @excel";
-const testData = Utility.readFromExcelSheet<LoginType>(CONFIG.testDataLocation , 'login' );
-
-//const testData: LoginType[] = login_data("login");
-
-test.describe(`${Test3_title}`, () => {
-  for (const data of testData) {
-    if (data.run !== "yes") continue;
-    const Test3_testNames: TestCase[] = [
-      { testId: data.testname, testDesc: data.summary },
-    ];
-    test(`Verify various Login scenarios - ${data.scenario}`, async ({
-      page,
-    }) => {
-      Helper.addTestCases(Test3_testNames);
-      const login = new LoginPage(page);
-      await test.step(`Open Test URL`, async () => {
-        await login.navigateTo(CONFIG.SAUCEDEMO_BASE_URL);
-      });
-      await test.step(`Verify Login scenario : ${data.scenario}`, async () => {
-        await login.loginScenarios(data.username, data.password, data.scenario);
-      });
-    });
-  }
-});
 
 //------------------------------

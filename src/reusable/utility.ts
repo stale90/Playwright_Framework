@@ -39,7 +39,7 @@ export class Utility {
    * @returns T[] - Typed array (LoginType[], GuestMakePaymentType[], etc.)
    */
 
-  static readFromExcelSheet<T>(filePath: string, sheetName: string): T[] {
+   static readFromExcelSheet<T>(filePath: string, sheetName: string): T[] {
     try {
       const fullPath = path.resolve(filePath);
       const workbook = XLSX.readFile(fullPath);

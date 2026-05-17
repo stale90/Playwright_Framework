@@ -13,11 +13,20 @@ dotenv.config();
     let timeStamp = Utility.getDateTimeFilename();
     let htmlReportPath = `${CONFIG.html_base_path}/${date}/html_${timeStamp}`;
     let allureReportPath = `${CONFIG.allure_base_path}/${date}/${timeStamp}`;
-    paths.set("html", `${htmlReportPath}`)
-    paths.set("allure", `${allureReportPath}`)
+    let excelReportPath = `${CONFIG.excel_base_path}/${date}/${timeStamp}`;
+    paths.set("html", `${htmlReportPath}`);
+    paths.set("allure", `${allureReportPath}`);
+    paths.set("excel", `${excelReportPath}`);
     return paths;
   }
 
+  // function to get unique Report folder locations
+  export function getExcelReportPath(): string {
+    let date = Utility.getCurrentDate();
+    let timeStamp = Utility.getDateTimeFilename();
+    let excelReportPath = `${CONFIG.excel_base_path}/${date}/${timeStamp}`;
+    return excelReportPath;
+  }
 
 // Create Project Configuration for playwright.config , Multiple Browser Support
 export function createProjectsBrowserConfig(browserNames: string[]): ProjectConfig[] {
@@ -57,6 +66,8 @@ export const CONFIG = {
   allure_base_path: process.env.ALLURE_RESULTS_BASE_FOLDER || "allure-results",
 
   html_base_path: process.env.HTML_REPORTS_BASE_FOLDER || "html-report",
+
+  excel_base_path: process.env.EXCEL_REPORTS_BASE_FOLDER || "excel-report",
 
   myMessage: process.env.MY_MESSAGE || "We Will Keep Walking",
 
