@@ -20,7 +20,7 @@ export class Utility {
   }
 
   // function to return current date as format  04-16-2026-13_04_59
-  static getDateTimeFilename(): string {
+  static getDateTimeStamp(): string {
     const now = new Date();
     const year = now.getFullYear();
     const month = String(now.getMonth() + 1).padStart(2, "0");
@@ -32,6 +32,60 @@ export class Utility {
     return timeStampFileName;
     // "2026-04-16-12_54_23"
   }
+
+  // function to get unique Report folder locations
+  static getReportPaths(): Map<string,string> {
+    const paths = new Map<string, string>();
+    let date = Utility.getCurrentDate();
+    let timeStamp = Utility.getDateTimeStamp();
+    let htmlReportPath = `${CONFIG.html_base_path}/${date}/Html_${timeStamp}`;
+    let allureReportPath = `${CONFIG.allure_base_path}/${date}/Allure_${timeStamp}`;
+    paths.set("html", `${htmlReportPath}`);
+    paths.set("allure", `${allureReportPath}`);
+    return paths;
+  }
+
+    // function to get unique Report folder locations: Date format
+    static getExcelReportPath(): string {
+      let date = Utility.getCurrentDate();
+      let excelReportPath = `${CONFIG.excel_base_path}/${date}`;
+      return excelReportPath;
+    }
+
+   // function to get unique name includes timestamp and date
+    static getTimeStampFileName(): string {
+      let timeStamp = Utility.getDateTimeStamp();
+      let excelFileName = `${timeStamp}`;
+      return excelFileName;
+    }
+  
+    // 10 digit random number
+  static getRandom10DigitMobileNumber(): string {
+  const firstDigit = Math.floor(Math.random() * 4) + 6; // 6, 7, 8, or 9
+  const remainingDigits = Math.floor(Math.random() * 1_000_000_000)
+    .toString()
+    .padStart(9, '0');
+
+  return `${firstDigit}${remainingDigits}`;
+}
+
+// 6 digit random number
+static getRandom6DigitNumber(): string {
+  const number = Math.floor(Math.random() * 900000) + 100000;
+  return number.toString();
+}
+
+// 5 digit random number
+static getRandom5DigitNumber(): string {
+  const number = Math.floor(Math.random() * 90000) + 10000;
+  return number.toString();
+}
+
+// 7 digit random number
+static getRandom7DigitNumber(): string {
+  const number = Math.floor(Math.random() * 9_000_000) + 1_000_000;
+  return number.toString();
+}
 
   /**
    * Generic Excel reader - Works for ANY sheet + ANY type!

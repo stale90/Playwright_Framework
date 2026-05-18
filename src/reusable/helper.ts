@@ -17,6 +17,24 @@ static addTestCases(testCases: TestCase[]) {
       }
   }
 
+  //Add Testcases into report as Annotations.
+static addAnnotation(testID: string, testSummary: string) {
+  try {
+    const annotation = {
+      type: testID,
+      description: testSummary,
+    };
+
+    test.info().annotations.push(annotation);
+  } catch (error) {
+    Logger.exception(
+      "Exception occured while adding Testcases in report",
+      error
+    );
+  }
+}
+
+
   // Navigate to Web URL
   static async openURL(page: Page, url: string): Promise<void> {
     try {

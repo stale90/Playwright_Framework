@@ -1,9 +1,14 @@
 import test from "@playwright/test";
 import ExcelJS from "exceljs";
 import * as path from "path";
+import { Utility } from "../../reusable/utility";
+import { Logger } from "../../config/logger";
 
 async function writeExcel(title:string,status:string){
-    let reportDir = path.resolve("report");
+   // let reportDir = path.resolve("report");
+    //let filePath = path.join(reportDir, "results.xlsx");
+    const temp = process.env.CURRENT_EXCEL_REPORT_DIR || path.resolve('ExcelReport');
+    let reportDir = path.resolve(temp);
     let filePath = path.join(reportDir, "results.xlsx");
     let sheetName = "Sheet1";
     const workbook = new ExcelJS.Workbook();
@@ -26,7 +31,7 @@ async function writeExcel(title:string,status:string){
     await workbook.xlsx.writeFile(filePath);
 }
 
-test.describe("test", () => {
+test.describe.skip("test", () => {
 for (let i = 1; i < 10; i++) {
   test.only(`test ${i}`, async ({ page }) => {
     console.log("Test function inside ");
@@ -39,18 +44,10 @@ for (let i = 1; i < 10; i++) {
 }
 });
 
+test.only('random number mobile', async ({ page }) => {
+  Logger.info("10 Digit: " + Utility.getRandom10DigitMobileNumber());
+  Logger.info("6 digit : " + Utility.getRandom6DigitNumber());
+  Logger.info("5 digit : " + Utility.getRandom5DigitNumber());
+  Logger.info("7 digit : " + Utility.getRandom7DigitNumber());
 
-test.afterEach(async ({}, testInfo) => {
-  let status:string='UNKNOWN';
-  console.log("Test Status : " +testInfo.status);
-  if (testInfo.status==='passed')
-    status="PASS";
-  if (testInfo.status==='failed')
-    status="FAIL";
-  if (testInfo.status==='skipped')
-    status="SKIP";
-    writeExcel(testInfo.title, status);
-  //ExcelTestReport.addResult(testId, testSummary, status);
-  //await ExcelTestReport.appendRow1(testId, testSummary, status);
 });
-

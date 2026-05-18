@@ -6,28 +6,6 @@ import { Utility } from "../reusable/utility";
 dotenv.config();
 
 
-// function to get unique Report folder locations
-  export function getReportPaths(): Map<string,string> {
-    const paths = new Map<string, string>();
-    let date = Utility.getCurrentDate();
-    let timeStamp = Utility.getDateTimeFilename();
-    let htmlReportPath = `${CONFIG.html_base_path}/${date}/html_${timeStamp}`;
-    let allureReportPath = `${CONFIG.allure_base_path}/${date}/${timeStamp}`;
-    let excelReportPath = `${CONFIG.excel_base_path}/${date}/${timeStamp}`;
-    paths.set("html", `${htmlReportPath}`);
-    paths.set("allure", `${allureReportPath}`);
-    paths.set("excel", `${excelReportPath}`);
-    return paths;
-  }
-
-  // function to get unique Report folder locations
-  export function getExcelReportPath(): string {
-    let date = Utility.getCurrentDate();
-    let timeStamp = Utility.getDateTimeFilename();
-    let excelReportPath = `${CONFIG.excel_base_path}/${date}/${timeStamp}`;
-    return excelReportPath;
-  }
-
 // Create Project Configuration for playwright.config , Multiple Browser Support
 export function createProjectsBrowserConfig(browserNames: string[]): ProjectConfig[] {
   const deviceRecord: Record<string, string> = {

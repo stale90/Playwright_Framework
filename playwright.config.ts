@@ -1,9 +1,8 @@
 import { defineConfig } from "@playwright/test";
 import { Utility } from "./src/reusable/utility"; 
-import { CONFIG , getReportPaths } from "./src/config/config";
+import { CONFIG } from "./src/config/config";
 
-
-let reportPaths = getReportPaths();
+const reportPaths = Utility.getReportPaths();
 
 /*
  * See https://playwright.dev/docs/test-configuration.
@@ -14,6 +13,7 @@ export default defineConfig ({
   /* Test Directory folder */
   testDir: './src/tests',
   
+  globalSetup : './src/config/globalsetup',
   /* disable 'test-results' output folder */
   outputDir: CONFIG.OUTPUR_DIR,
 
@@ -50,7 +50,7 @@ export default defineConfig ({
 
   /* Report configuration setting */
   reporter:[
-            [ "html", { outputFolder: reportPaths.get('html')} ],
+            [ "html", { outputFolder: reportPaths.get('html') } ],
             [ "allure-playwright", { resultsDir: reportPaths.get('allure') }],
           ],
           

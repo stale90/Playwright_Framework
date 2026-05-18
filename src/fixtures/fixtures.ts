@@ -1,7 +1,7 @@
 import { test as base,TestInfo } from "@playwright/test";
-import { Logger } from "./logger";
+import { Logger } from "../config/logger";
 import { FrameworkFixtures } from "../types/custom-type";
-import { BrowserManager } from "./browser";
+import { BrowserManager } from "../config/browser";
 
 export const test = base.extend<FrameworkFixtures>({
   // Generic page (beforeEach + afterEach)

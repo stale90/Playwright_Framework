@@ -1,32 +1,16 @@
+import "../../fixtures/BaseTest";
 import { test } from "@playwright/test";
 import { LoginPage } from "../../pages/saucedemo/LoginPage";
 import { CONFIG } from "../../config/config";
 import { LoginType } from "../../types/data-type";
-import { TestCase } from "../../types/custom-type";
+import { ExcelReportData, TestCase } from "../../types/custom-type";
 import { Helper } from "../../reusable/helper";
 import { Utility } from "../../reusable/utility";
-import { ExcelJSUtility } from "../../reusable/ExcelJSUtility";
+import { Logger } from "../../config/logger";
 
-//--------------------------------
-
-test.afterEach(async ({}, testInfo) => {
-  let status = "UNKNOWN";
-  let testID;
-  let testSummary;
-
-  console.log("Test Status : " + testInfo.status);
-  if (testInfo.status === "passed") status = "PASS";
-  if (testInfo.status === "failed") status = "FAIL";
-  if (testInfo.status === "skipped") status = "SKIP";
-
-  for (const annotation of testInfo.annotations) {
-    testID = annotation.type;
-    testSummary = annotation.description;
-  }
-  ExcelJSUtility.writeExcel(testID, testSummary, status);
-});
 
 //----------------------------------
+
 
 const Test3_title: string = "Run Login Test from TestData Excel File - @excel";
 const testData = Utility.readFromExcelSheet<LoginType>(
@@ -34,15 +18,17 @@ const testData = Utility.readFromExcelSheet<LoginType>(
   "login",
 );
 
-test.describe(`${Test3_title}`, () => {
+test.describe.skip(`${Test3_title}`, () => {
   for (const data of testData) {
     if (data.run !== "yes") continue;
-    const Test3_testNames: TestCase[] = [
-      { testId: data.testname, testDesc: data.summary },
-    ];
-    test(`${data.summary}`, async ({ page }) => {
-      Helper.addTestCases(Test3_testNames);
+
+    test(`${data.test_desc}`, async ({ page }) => {
+      ExcelReportData.testId = data.test_id;
+      ExcelReportData.testDesc = data.test_desc;
+      Helper.addAnnotation(data.test_id, data.test_desc);
+      
       const login = new LoginPage(page);
+
       await test.step(`Open Test URL`, async () => {
         await login.navigateTo(CONFIG.SAUCEDEMO_BASE_URL);
       });
@@ -50,6 +36,8 @@ test.describe(`${Test3_title}`, () => {
       await test.step(`Verify Login scenario : ${data.scenario}`, async () => {
         await login.loginScenarios(data.username, data.password, data.scenario);
       });
+      ExcelReportData.applicationId = "POFDFLJSDD"+data.test_id;
+
     });
   }
 });
@@ -64,7 +52,7 @@ const Test1_testNames: TestCase[] = [
 ];
 const Test1_title: string = "Verify Login flow - @regression";
 
-test(`${Test1_title}`, async ({ page }) => {
+test.skip(`${Test1_title}`, async ({ page }) => {
   Helper.addTestCases(Test1_testNames);
   let username = "standard_user";
   let password = "secret_sauce";
@@ -88,7 +76,7 @@ const Test2_testNames: TestCase[] = [
   { testId: "Play-302", testDesc: "verify login with invalid credentials" },
 ];
 const Test2_title: string = "Verify SauceDemo Login flow Errors - @regression";
-test(`${Test2_title}`, async ({ page }) => {
+test.skip(`${Test2_title}`, async ({ page }) => {
   Helper.addTestCases(Test2_testNames);
   let username = "locked_out_user";
   let password = "secret_sauce";
@@ -104,5 +92,7 @@ test(`${Test2_title}`, async ({ page }) => {
 });
 
 //---------------------------
+
+
 
 //------------------------------

@@ -1,4 +1,4 @@
-import { test } from "../../config/fixtures";
+import { test } from "../../fixtures/fixtures";
 import { CONFIG } from "../../config/config";
 import { TestCase } from "../../types/custom-type";
 import { Helper } from "../../reusable/helper";

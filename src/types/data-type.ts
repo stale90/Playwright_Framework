@@ -2,12 +2,12 @@
 // Custom DataType for sheet : loginData
 export interface LoginType {
     run: string;
-    testname: string;
-    summary: string;
+    test_id: string;
+    test_desc: string;
     username: string;
     password: string;
     scenario: string; 
-    message: string;
+    comment: string;
 }
 
 // Custom DataType for sheet : guestmakepayment

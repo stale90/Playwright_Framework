@@ -2,36 +2,13 @@ import ExcelJS from "exceljs";
 //import fs from 'fs';
 import * as fs from "node:fs/promises";
 import * as path from "path";
+import { Logger } from "../config/logger";
 
 export class ExcelJSUtility {
   private static reportDir = path.resolve("report");
   private static filePath = path.join(this.reportDir, "test-results.xlsx");
   private static sheetName = "Results";
 
-  static async writeExcel(testID:string|undefined,testSummary:string|undefined,status:string){
-      let reportDir = path.resolve("report");
-      let filePath = path.join(reportDir, "results.xlsx");
-      let sheetName = "Sheet1";
-      const workbook = new ExcelJS.Workbook();
-      let worksheet;
-     
-      try {
-          // 1. Load the existing file
-          await workbook.xlsx.readFile(filePath);
-          worksheet = workbook.getWorksheet(sheetName);
-      } catch (error) {
-          // If file doesn't exist, create it and add headers
-          worksheet = workbook.addWorksheet(sheetName);
-          worksheet.addRow(['TestID', 'TestSummary', 'Status']);
-      }
-       if (!worksheet) {
-          worksheet = workbook.addWorksheet(sheetName);
-          worksheet.addRow(['TestID', 'TestSummary', 'Status']);
-    }
-      worksheet.addRow([testID,testSummary,status]);
-      await workbook.xlsx.writeFile(filePath);
-  }
-  
   static async initReport(): Promise<void> {
     await fs.mkdir(this.reportDir, { recursive: true });
 
@@ -233,5 +210,50 @@ export class ExcelJSUtility {
       TestStatus: testStatus,
     });
     await workbook.xlsx.writeFile(this.filePath);
+  }
+
+  static async writeExcelTestReport(
+    testID: string,
+    testSummary: string,
+    applicationId: string,
+    testStatus: string,
+  ): Promise<void> {
+    const filePath = await this.getFilePath();
+    const sheetName = "Results";
+    const workbook = new ExcelJS.Workbook();
+    let worksheet: ExcelJS.Worksheet | undefined;
+
+    try {
+      // Load the existing file
+      await workbook.xlsx.readFile(filePath);
+      worksheet = workbook.getWorksheet(sheetName);
+    } catch (error) {
+      worksheet = undefined;
+      Logger.info("Inside Catch()");
+    }
+
+    if (!worksheet) {
+      worksheet = workbook.addWorksheet(sheetName);
+      worksheet.addRow(["TestID", "TestSummary", "ApplicationID", "Status"]);
+      console.log("Inside !worksheet");
+    }
+
+    // Add Row data in Excel
+    worksheet.addRow([testID, testSummary, applicationId, testStatus]);
+    console.log("Write Excel file");
+    await workbook.xlsx.writeFile(filePath);
+  }
+
+  static async getFilePath(): Promise<string> {
+    const baseFolder =
+      process.env.CURRENT_EXCEL_REPORT_DIR || path.resolve("Default-Report");
+    const fileName = process.env.TIMESTAMP_FILE_NAME
+      ? `Excel_${process.env.TIMESTAMP_FILE_NAME}.xlsx`
+      : "DefaultExcel.xlsx";
+
+    let reportDir = path.resolve(baseFolder);
+    await fs.mkdir(reportDir, { recursive: true });
+    let filePath = path.join(reportDir, fileName);
+    return filePath;
   }
 }

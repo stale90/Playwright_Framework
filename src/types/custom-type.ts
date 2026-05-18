@@ -1,5 +1,13 @@
 import { Browser, BrowserContext, Page } from "@playwright/test";
 
+export const ExcelReportData = {
+  testId:'',
+  testDesc:'',
+  applicationId: '',
+  testStatus: '',
+};
+
+
 export interface ProjectConfig {
   name: string;
   use: any;
