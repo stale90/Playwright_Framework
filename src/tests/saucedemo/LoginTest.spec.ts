@@ -52,7 +52,7 @@ const Test1_testNames: TestCase[] = [
 ];
 const Test1_title: string = "Verify Login flow - @regression";
 
-test.skip(`${Test1_title}`, async ({ page }) => {
+test(`${Test1_title}`, async ({ page }) => {
   Helper.addTestCases(Test1_testNames);
   let username = "standard_user";
   let password = "secret_sauce";

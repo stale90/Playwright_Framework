@@ -53,5 +53,5 @@ export default defineConfig ({
             [ "html", { outputFolder: reportPaths.get('html') } ],
             [ "allure-playwright", { resultsDir: reportPaths.get('allure') }],
           ],
-          
+                 
 });
